@@ -1,7 +1,7 @@
 <template>
   <div>
-    <p>Main: {{ fuel.FuelMain }}</p>
-    <p>Reservoir: {{ fuel.FuelReservoir }}</p>
+    <p>Main: {{ fuel.FuelMain | decimal }}</p>
+    <p>Reservoir: {{ fuel.FuelReservoir | decimal }}</p>
   </div>
 </template>
 

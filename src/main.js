@@ -4,6 +4,7 @@ import VueElectron from 'vue-electron'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import './filter'
 import Journal from './lib/Journal'
 import Status from './lib/Status'
 
