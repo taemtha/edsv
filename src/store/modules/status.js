@@ -1,13 +1,13 @@
 const state = {
   docked: false, // 0 1 0000 0001 Docked, (on a landing pad)
-  // 1 2 0000 0002 Landed, (on planet surface)
+  landed: false, // 1 2 0000 0002 Landed, (on planet surface)
   landingGearDown: false, // 2 4 0000 0004 Landing Gear Down
   shieldsUp: false, // 3 8 0000 0008 Shields Up
   supercruise: false, // 4 16 0000 0010 Supercruise
-  // 5 32 0000 0020 FlightAssist Off
-  // 6 64 0000 0040 Hardpoints Deployed
-  // 7 128 0000 0080 In Wing
-  // 8 256 0000 0100 LightsOn
+  flightAssistOff: false, // 5 32 0000 0020 FlightAssist Off
+  hardpointsDeployed: false, // 6 64 0000 0040 Hardpoints Deployed
+  inWing: false, // 7 128 0000 0080 In Wing
+  lightsOn: false, // 8 256 0000 0100 LightsOn
   cargoScoopDeployed: false, // 9 512 0000 0200 Cargo Scoop Deployed
   silentRunning: false, // 10 1024 0000 0400 Silent Running,
   scoopingFuel: false, // 11 2048 0000 0800 Scooping Fuel
@@ -27,7 +27,7 @@ const state = {
   // 25 33554432 0200 0000 In Fighter
   // 26 67108864 0400 0000 In SRV
   analysisMode: false, // 27 134217728 0800 0000 Hud in Analysis mode
-  // 28 268435456 1000 0000 Night Vision
+  nightVision: false, // 28 268435456 1000 0000 Night Vision
 
   fuel: 0
 
@@ -42,6 +42,9 @@ const actions = {
     const docked = ((edStatus.Flags & 1 << 0) !== 0)
     commit('setDocked', docked)
 
+    const landed = ((edStatus.Flags & 1 << 1) !== 0)
+    commit('setLanded', landed)
+
     const landingGearDown = ((edStatus.Flags & 1 << 2) !== 0)
     commit('setLandingGearDown', landingGearDown)
 
@@ -50,6 +53,18 @@ const actions = {
 
     const supercruise = ((edStatus.Flags & 1 << 4) !== 0)
     commit('setSupercruise', supercruise)
+
+    const flightAssistOff = ((edStatus.Flags & 1 << 5) !== 0)
+    commit('setFlightAssistOff', flightAssistOff)
+
+    const hardpointsDeployed = ((edStatus.Flags & 1 << 6) !== 0)
+    commit('setHardpointsDeployed', hardpointsDeployed)
+
+    const inWing = ((edStatus.Flags & 1 << 7) !== 0)
+    commit('setInWing', inWing)
+
+    const lightsOn = ((edStatus.Flags & 1 << 8) !== 0)
+    commit('setLightsOn', lightsOn)
 
     const cargoScoopDeployed = ((edStatus.Flags & 1 << 9) !== 0)
     commit('setCargoScoopDeployed', cargoScoopDeployed)
@@ -72,6 +87,9 @@ const actions = {
     const analysisMode = ((edStatus.Flags & 1 << 27) !== 0)
     commit('setAnalysisMode', analysisMode)
 
+    const nightVision = ((edStatus.Flags & 1 << 28) !== 0)
+    commit('setNightVision', nightVision)
+
     commit('setFuel', edStatus.Fuel)
   }
 
@@ -82,7 +100,9 @@ const mutations = {
   setDocked (state, docked) {
     state.docked = docked
   },
-
+  setLanded (state, landed) {
+    state.landed = landed
+  },
   setLandingGearDown (state, landingGearDown) {
     state.landingGearDown = landingGearDown
   },
@@ -91,6 +111,18 @@ const mutations = {
   },
   setSupercruise (state, supercruise) {
     state.supercruise = supercruise
+  },
+  setFlightAssistOff (state, flightAssistOff) {
+    state.flightAssistOff = flightAssistOff
+  },
+  setHardpointsDeployed (state, hardpointsDeployed) {
+    state.hardpointsDeployed = hardpointsDeployed
+  },
+  setInWing (state, inWing) {
+    state.lightsOn = inWing
+  },
+  setLightsOn (state, lightsOn) {
+    state.lightsOn = lightsOn
   },
   setCargoScoopDeployed (state, cargoScoopDeployed) {
     state.cargoScoopDeployed = cargoScoopDeployed
@@ -112,6 +144,9 @@ const mutations = {
   },
   setAnalysisMode (state, analysisMode) {
     state.analysisMode = analysisMode
+  },
+  setNightVision (state, nightVision) {
+    state.nightVision = nightVision
   },
   setFuel (state, fuel) {
     state.fuel = fuel
