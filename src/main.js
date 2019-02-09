@@ -1,8 +1,16 @@
 import Vue from 'vue'
+import './plugins/vuetify'
 import VueElectron from 'vue-electron'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import Journal from './lib/Journal'
+import Status from './lib/Status'
+
+const HID = require('node-hid')
+const devices = HID.devices()
+
+console.log(devices)
 
 Vue.config.productionTip = false
 
@@ -18,20 +26,51 @@ process.on('unhandledRejection', error => {
   console.error(error)
 })
 
-const homeDir = require('os').homedir()
-const path = require('path')
+const journal = new Journal()
+const journalFiles = journal.getJournalFiles()
+
 const Tail = require('tail').Tail
 
-const savegameDir = '/Saved Games/Frontier Developments/Elite Dangerous'
+const journalTail = new Tail(journalFiles[journalFiles.length - 1])
+journalTail.on('line', function (data) {
+  const object = JSON.parse(data)
 
-// const journalFile = path.join(homeDir, savegameDir, 'Journal.190115210549.01.log')
-// const journalTail = new Tail(journalFile)
-// journalTail.on('line', function (data) {
-//   const object = JSON.parse(data)
-//   console.dir(object, { depth: null, colors: true })
-// })
+  switch (object.event) {
+    // Scan
+    case 'Scan':
+      store.dispatch('scan/Scan', object)
+      break
+    case 'FSSDiscoveryScan':
+      store.dispatch('scan/FSSDiscoveryScan', object)
+      break
+    case 'FSSAllBodiesFound':
+      store.dispatch('scan/FSSAllBodiesFound', object)
+      break
 
-const statusFile = path.join(homeDir, savegameDir, 'Status.json')
+    // FSD Jump
+    case 'StartJump':
+      store.dispatch('fsd/StartJump', object)
+      break
+    case 'FSDTarget':
+      store.dispatch('fsd/FSDTarget', object)
+      break
+    case 'FSDJump':
+      store.dispatch('fsd/FSDJump', object)
+      break
+
+    // ignored events
+    case 'Music':
+    case 'ReceiveText':
+      break
+
+    // not handled events
+    default:
+      console.dir('not handled event: ' + object.event)
+  }
+})
+
+const status = new Status()
+const statusFile = status.getStatusFile()
 const statusTail = new Tail(statusFile)
 
 statusTail.on('line', function (data) {

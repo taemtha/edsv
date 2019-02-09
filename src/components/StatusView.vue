@@ -1,39 +1,27 @@
 <template>
   <div>
     <h1>Status</h1>
-    <dl>
-        <dt>docked</dt>
-        <dd>{{ docked }}</dd>
-        <dt>supercruise</dt>
-        <dd>{{ supercruise }}</dd>
-        <dt>cargoScoopDeployed</dt>
-        <dd>{{ cargoScoopDeployed }}</dd>
-        <dt>fsdCharging</dt>
-        <dd>{{ fsdCharging }}</dd>
-        <dt>fsdCooldown</dt>
-        <dd>{{ fsdCooldown }}</dd>
-        <dt>analysisMode</dt>
-        <dd>{{ analysisMode }}</dd>
-    </dl>
-    <p>Fuel: {{ fuel }}</p>
+    <indicator title="Docked" statusField="docked"></indicator>
+    <indicator title="Supercruise" statusField="supercruise"></indicator>
+    <indicator title="Cargo Scoop" statusField="cargoScoopDeployed"></indicator>
+    <indicator title="Scooping Fuel" statusField="scoopingFuel"></indicator>
+    <indicator title="FSD Charging" statusField="fsdCharging" warn></indicator>
+    <indicator title="FSD Cooldown" statusField="fsdCooldown" warn></indicator>
+    <indicator title="analysisMode" statusField="analysisMode"></indicator>
+    <fuel></fuel>
+
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import Indicator from '@/components/Indicator'
+import Fuel from '@/components/Fuel'
 
 export default {
   name: 'StatusView',
-  computed: {
-    ...mapState('status', [
-      'docked',
-      'supercruise',
-      'cargoScoopDeployed',
-      'fsdCharging',
-      'fsdCooldown',
-      'analysisMode',
-      'fuel'
-    ])
+  components: {
+    Indicator,
+    Fuel
   }
 }
 </script>

@@ -1,21 +1,21 @@
 const state = {
   docked: false, // 0 1 0000 0001 Docked, (on a landing pad)
   // 1 2 0000 0002 Landed, (on planet surface)
-  // 2 4 0000 0004 Landing Gear Down
-  // 3 8 0000 0008 Shields Up
+  landingGearDown: false, // 2 4 0000 0004 Landing Gear Down
+  shieldsUp: false, // 3 8 0000 0008 Shields Up
   supercruise: false, // 4 16 0000 0010 Supercruise
   // 5 32 0000 0020 FlightAssist Off
   // 6 64 0000 0040 Hardpoints Deployed
   // 7 128 0000 0080 In Wing
   // 8 256 0000 0100 LightsOn
   cargoScoopDeployed: false, // 9 512 0000 0200 Cargo Scoop Deployed
-  // 10 1024 0000 0400 Silent Running,
-  // 11 2048 0000 0800 Scooping Fuel
+  silentRunning: false, // 10 1024 0000 0400 Silent Running,
+  scoopingFuel: false, // 11 2048 0000 0800 Scooping Fuel
   // 12 4096 0000 1000 Srv Handbrake
   // 13 8192 0000 2000 Srv using Turret view
   // 14 16384 0000 4000 Srv Turret retracted (close to ship)
   // 15 32768 0000 8000 Srv DriveAssist
-  // 16 65536 0001 0000 Fsd MassLocked
+  massLocked: false, // 16 65536 0001 0000 Fsd MassLocked
   fsdCharging: false, // 17 131072 0002 0000 Fsd Charging
   fsdCooldown: false, // 18 262144 0004 0000 Fsd Cooldown
   // 19 524288 0008 0000 Low Fuel ( < 25% )
@@ -42,11 +42,26 @@ const actions = {
     const docked = ((edStatus.Flags & 1 << 0) !== 0)
     commit('setDocked', docked)
 
+    const landingGearDown = ((edStatus.Flags & 1 << 2) !== 0)
+    commit('setLandingGearDown', landingGearDown)
+
+    const shieldsUp = ((edStatus.Flags & 1 << 3) !== 0)
+    commit('setShieldsUp', shieldsUp)
+
     const supercruise = ((edStatus.Flags & 1 << 4) !== 0)
     commit('setSupercruise', supercruise)
 
     const cargoScoopDeployed = ((edStatus.Flags & 1 << 9) !== 0)
     commit('setCargoScoopDeployed', cargoScoopDeployed)
+
+    const silentRunning = ((edStatus.Flags & 1 << 10) !== 0)
+    commit('setSilentRunning', silentRunning)
+
+    const scoopingFuel = ((edStatus.Flags & 1 << 11) !== 0)
+    commit('setScoopingFuel', scoopingFuel)
+
+    const massLocked = ((edStatus.Flags & 1 << 16) !== 0)
+    commit('setMassLocked', massLocked)
 
     const fsdCharging = ((edStatus.Flags & 1 << 17) !== 0)
     commit('setFsdCharging', fsdCharging)
@@ -67,11 +82,27 @@ const mutations = {
   setDocked (state, docked) {
     state.docked = docked
   },
+
+  setLandingGearDown (state, landingGearDown) {
+    state.landingGearDown = landingGearDown
+  },
+  setShieldsUp (state, shieldsUp) {
+    state.shieldsUp = shieldsUp
+  },
   setSupercruise (state, supercruise) {
     state.supercruise = supercruise
   },
   setCargoScoopDeployed (state, cargoScoopDeployed) {
     state.cargoScoopDeployed = cargoScoopDeployed
+  },
+  setSilentRunning (state, silentRunning) {
+    state.silentRunning = silentRunning
+  },
+  setScoopingFuel (state, scoopingFuel) {
+    state.scoopingFuel = scoopingFuel
+  },
+  setMassLocked (state, massLocked) {
+    state.massLocked = massLocked
   },
   setFsdCharging (state, isCharging) {
     state.fsdCharging = isCharging
