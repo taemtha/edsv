@@ -4,7 +4,7 @@
 
 <script>
 import * as Three from 'three'
-
+import OrbitControls from 'three-orbitcontrols'
 export default {
   name: 'Three',
   data () {
@@ -23,7 +23,7 @@ export default {
       this.camera = new Three.PerspectiveCamera(70, container.clientWidth / container.clientHeight, 0.01, 10)
       this.camera.position.z = 1
 
-      // this.controls = new Three.OrbitControls(this.camera)
+      this.controls = new OrbitControls(this.camera, container)
 
       this.scene = new Three.Scene()
 
@@ -32,15 +32,17 @@ export default {
 
       this.mesh = new Three.Mesh(geometry, material)
       this.scene.add(this.mesh)
+      const gridHelper = new Three.GridHelper(10, 10)
+      this.scene.add(gridHelper)
 
       this.renderer = new Three.WebGLRenderer({ antialias: true })
       this.renderer.setSize(container.clientWidth, container.clientHeight)
-      //      this.controls.update()
+      this.controls.update()
       container.appendChild(this.renderer.domElement)
     },
     animate: function () {
       requestAnimationFrame(this.animate)
-      //   this.controls.update()
+      this.controls.update()
       this.renderer.render(this.scene, this.camera)
     }
   },

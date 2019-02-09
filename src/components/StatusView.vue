@@ -17,7 +17,6 @@
     <h2>Fuel</h2>
       <indicator title="Scooping Fuel" statusField="scoopingFuel"></indicator>
       <fuel></fuel>
-
   </div>
 </template>
 
