@@ -1,7 +1,11 @@
 $orangeNormal: orange;
-$orangeDark: darken(orange,25);
-$orangeDarker: darken(orange,40);
+$orangeDark: darken($orangeNormal,25);
+$orangeDarker: darken($orangeNormal,40);
 
 $blueNormal: rgb(0,165,239);
-$blueDark: darken(rgb(0,165,239), 25);
-$blueDarker: darken(rgb(0,165,239), 40);
+$blueDark: darken($blueNormal, 25);
+$blueDarker: darken($blueNormal, 40);
+
+$redNormal: rgb(169,0,0);
+$redDark: darken($redNormal, 15);
+$redDarker: darken($redNormal, 25);

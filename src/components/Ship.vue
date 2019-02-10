@@ -1,11 +1,11 @@
 <template>
   <div>
     <text-header text="Ship"></text-header>
+    <ship-mode />
     <indicator title="Docked" statusField="docked"></indicator>
     <indicator title="Landing Gear" statusField="landingGearDown"></indicator>
     <indicator title="Cargo Scoop" statusField="cargoScoopDeployed"></indicator>
     <indicator title="Mass Locked" statusField="massLocked" warn></indicator>
-    <ship-mode />
   </div>
 </template>
 

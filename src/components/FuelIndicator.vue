@@ -47,6 +47,7 @@ p {
   color: $orangeNormal;
   font-weight: bold;
   text-transform: uppercase;
+  margin-bottom: 5px;
 }
 
 svg {

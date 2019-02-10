@@ -7,11 +7,11 @@
       :value="fuelMain"
       :max="fuelMainMax">
     </fuel-indicator>
-    <fuel-indicator
+    <!-- <fuel-indicator
       text="Reservoir"
       :value="fuelReservoir"
       :max="fuelReservoirMax">
-    </fuel-indicator>
+    </fuel-indicator> -->
 
   </div>
 </template>

@@ -32,9 +32,9 @@ export default {
     margin: 5px 0 5px 0;
     text-align: center;
     text-transform: uppercase;
-    background: $orangeNormal;
-    border:2px $orangeDark solid;
-    color: $orangeDarker;
+    background: $redNormal;
+    border:2px $redDark solid;
+    color: $redDarker;
 }
 .analysis {
   border:2px $blueDark solid;
