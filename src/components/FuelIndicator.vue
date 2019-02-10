@@ -50,6 +50,8 @@ svg {
 
   rect.data {
     fill: orange;
+    transition-timing-function: ease;
+     transition: width .5s
   }
 
   line {
