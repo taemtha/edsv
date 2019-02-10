@@ -29,12 +29,18 @@ const state = {
   analysisMode: false, // 27 134217728 0800 0000 Hud in Analysis mode
   nightVision: false, // 28 268435456 1000 0000 Night Vision
 
-  fuel: 0
+  fuelMain: 0,
+  fuelMainMax: 32,
+
+  fuelReservoir: 0,
+  fuelReservoirMax: 0.63
 
 }
 
 // getters
-const getters = { }
+const getters = {
+
+}
 
 // actions
 const actions = {
@@ -90,7 +96,8 @@ const actions = {
     const nightVision = ((edStatus.Flags & 1 << 28) !== 0)
     commit('setNightVision', nightVision)
 
-    commit('setFuel', edStatus.Fuel)
+    commit('setFuelMain', edStatus.Fuel.FuelMain)
+    commit('setFuelReservoir', edStatus.Fuel.FuelReservoir)
   }
 
 }
@@ -148,8 +155,11 @@ const mutations = {
   setNightVision (state, nightVision) {
     state.nightVision = nightVision
   },
-  setFuel (state, fuel) {
-    state.fuel = fuel
+  setFuelMain (state, fuelMain) {
+    state.fuelMain = fuelMain
+  },
+  setFuelReservoir (state, fuelReservoir) {
+    state.fuelReservoir = fuelReservoir
   }
 }
 

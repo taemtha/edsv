@@ -1,5 +1,5 @@
 <template>
-  <div class="indicator" v-bind:class="classObject">
+  <div class="indicator" :class="classObject">
       {{ title }}
   </div>
 </template>
