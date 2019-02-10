@@ -1,6 +1,6 @@
 <template>
-  <div>
-   Ship Mode: {{ mode }}
+  <div class="indicator" :class="classObject">
+      {{ mode }}
   </div>
 </template>
 
@@ -19,8 +19,7 @@ export default {
     },
     classObject: function () {
       return {
-        active: this.$store.state.status[this.statusField],
-        warning: this.$store.state.status[this.statusField] && this.warn
+        analysis: this.analysisMode
       }
     }
   }
@@ -28,5 +27,18 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+.indicator {
+    border-radius: 2px;
+    margin: 5px 0 5px 0;
+    text-align: center;
+    text-transform: uppercase;
+    background: $orangeNormal;
+    border:2px $orangeDark solid;
+    color: $orangeDarker;
+}
+.analysis {
+  border:2px $blueDark solid;
+  background: $blueNormal;
+  color: $blueDarker;
+}
 </style>

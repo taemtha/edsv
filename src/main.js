@@ -7,6 +7,7 @@ import store from './store'
 import './filter'
 import Journal from './lib/Journal'
 import Status from './lib/Status'
+import './assets/scss/main.scss'
 
 Vue.config.productionTip = false
 

@@ -32,23 +32,19 @@ export default {
 
 <style scoped lang="scss">
 
-$orangeLight: darken(orange,25);
-$orangeDark: darken(orangered,30);
-$orangeNormal: orange;
-
 .indicator {
     border-radius: 2px;
     margin: 5px 0 5px 0;
     text-align: center;
-    background-color: $orangeDark;
-    border:2px $orangeLight solid;
+    background-color: $orangeDarker;
+    border:2px $orangeDark solid;
     color: $orangeNormal;
     text-transform: uppercase;
 }
 .active {
     background: $orangeNormal;
-    border:2px $orangeLight solid;
-    color: $orangeDark;
+    border:2px $orangeDark solid;
+    color: $orangeDarker;
 
 }
 .warning {
@@ -57,18 +53,18 @@ $orangeNormal: orange;
 
 @keyframes pulse {
     0% {
-        background-color: $orangeDark;
+        background-color: $orangeDarker;
         border-color: $orangeNormal;
         color: $orangeNormal;
     }
     50% {
         background-color: $orangeNormal;
-        border-color: $orangeDark;
-        color: $orangeDark;
+        border-color: $orangeDarker;
+        color: $orangeDarker;
     }
 
     100% {
-        background-color: $orangeDark;
+        background-color: $orangeDarker;
         border-color: $orangeNormal;
         color: $orangeNormal;
     }

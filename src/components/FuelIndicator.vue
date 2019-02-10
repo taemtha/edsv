@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>{{ text }}: {{ value | decimal }}</p>
-    <svg width='100%' height='65px'>
+    <svg width='100%' height='40px'>
       <svg preserveAspectRatio="none" viewBox='0 0 100 65'>
         <rect class='bg' width='100%' height='10'></rect>
         <rect class='data' :style="barStyle"  height='10'></rect>
@@ -41,11 +41,8 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 
-$orangeLight: darken(orange,25);
-$orangeDark: darken(orangered,30);
-$orangeNormal: orange;
 p {
   color: $orangeNormal;
   font-weight: bold;
@@ -55,7 +52,7 @@ p {
 svg {
 
   rect.bg {
-    fill: $orangeLight;
+    fill: $orangeDark;
   }
 
   rect.data {
@@ -65,7 +62,7 @@ svg {
   }
 
   line {
-    stroke: $orangeDark;
+    stroke: $orangeDarker;
     stroke-width: 0.5;
   }
 
