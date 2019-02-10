@@ -31,17 +31,24 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
+$orangeLight: darken(orange,25);
+$orangeDark: darken(orangered,30);
+$orangeNormal: orange;
+
 .indicator {
-    border-radius: 10px;
-    margin: 5px;
-    padding: 5px;
+    border-radius: 2px;
+    margin: 5px 0 5px 0;
     text-align: center;
-    background-color: orangered;
-    border:2px orange solid
+    background-color: $orangeDark;
+    border:2px $orangeLight solid;
+    color: $orangeNormal;
+    text-transform: uppercase;
 }
 .active {
-    background: orange;
-    border:2px orangered solid;
+    background: $orangeNormal;
+    border:2px $orangeLight solid;
+    color: $orangeDark;
 
 }
 .warning {
@@ -50,17 +57,20 @@ export default {
 
 @keyframes pulse {
     0% {
-        background-color: orangered;
-        border-color: orange;
+        background-color: $orangeDark;
+        border-color: $orangeNormal;
+        color: $orangeNormal;
     }
     50% {
-        background-color: orange;
-        border-color: orangered;
+        background-color: $orangeNormal;
+        border-color: $orangeDark;
+        color: $orangeDark;
     }
 
     100% {
-        background-color: orangered;
-        border-color: orange;
+        background-color: $orangeDark;
+        border-color: $orangeNormal;
+        color: $orangeNormal;
     }
 }
 

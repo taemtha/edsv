@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import status from './modules/status'
 import scan from './modules/scan'
 import fsd from './modules/fsd'
+import global from './modules/global'
 
 Vue.use(Vuex)
 
@@ -12,7 +13,8 @@ export default new Vuex.Store({
   modules: {
     status,
     scan,
-    fsd
+    fsd,
+    global
   },
   strict: debug
 })

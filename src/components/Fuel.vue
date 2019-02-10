@@ -1,6 +1,6 @@
 <template>
   <div>
-     <h2>Fuel</h2>
+    <text-header text="Fuel" />
     <indicator title="Scooping Fuel" statusField="scoopingFuel"></indicator>
     <fuel-indicator
       text="Main"
@@ -20,13 +20,15 @@
 import { mapState } from 'vuex'
 import FuelIndicator from '@/components/FuelIndicator'
 import Indicator from '@/components/Indicator'
+import TextHeader from '@/components/TextHeader'
 
 export default {
   name: 'Fuel',
 
   components: {
     Indicator,
-    FuelIndicator
+    FuelIndicator,
+    TextHeader
   },
 
   computed: {

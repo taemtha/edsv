@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Status</h1>
     <ship />
     <shields />
     <fsd />

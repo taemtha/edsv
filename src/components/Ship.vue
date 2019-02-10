@@ -1,20 +1,25 @@
 <template>
   <div>
-    <h2>Ship</h2>
+    <text-header text="Ship"></text-header>
     <indicator title="Docked" statusField="docked"></indicator>
     <indicator title="Landing Gear" statusField="landingGearDown"></indicator>
     <indicator title="Cargo Scoop" statusField="cargoScoopDeployed"></indicator>
-    <indicator title="analysisMode" statusField="analysisMode"></indicator>
+    <indicator title="Mass Locked" statusField="massLocked" warn></indicator>
+    <ship-mode />
   </div>
 </template>
 
 <script>
 import Indicator from '@/components/Indicator'
+import ShipMode from '@/components/ShipMode'
+import TextHeader from '@/components/TextHeader'
 
 export default {
   name: 'Ship',
   components: {
-    Indicator
+    Indicator,
+    ShipMode,
+    TextHeader
   }
 }
 </script>

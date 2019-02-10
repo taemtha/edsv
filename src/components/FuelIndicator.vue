@@ -42,25 +42,35 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
+$orangeLight: darken(orange,25);
+$orangeDark: darken(orangered,30);
+$orangeNormal: orange;
+p {
+  color: $orangeNormal;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
 svg {
 
   rect.bg {
-    fill: darken(orange, 25);
+    fill: $orangeLight;
   }
 
   rect.data {
-    fill: orange;
+    fill: $orangeNormal;
     transition-timing-function: ease;
-     transition: width .5s
+    transition: width .5s
   }
 
   line {
-    stroke: orangered;
+    stroke: $orangeDark;
     stroke-width: 0.5;
   }
 
   text {
-    fill: white;
+    fill: $orangeNormal;
   }
 }
 

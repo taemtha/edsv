@@ -1,19 +1,21 @@
 <template>
   <div>
-    <h2>FSD</h2>
+    <text-header text="FSD" />
     <indicator title="Supercruise" statusField="supercruise"></indicator>
     <indicator title="FSD Charging" statusField="fsdCharging" warn></indicator>
     <indicator title="FSD Cooldown" statusField="fsdCooldown" warn></indicator>
-    <indicator title="Mass Locked" statusField="massLocked" warn></indicator>
   </div>
 </template>
 
 <script>
 import Indicator from '@/components/Indicator'
+import TextHeader from '@/components/TextHeader'
+
 export default {
   name: 'Fsd',
   components: {
-    Indicator
+    Indicator,
+    TextHeader
   }
 }
 </script>
