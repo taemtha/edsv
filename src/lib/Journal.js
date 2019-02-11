@@ -23,7 +23,12 @@ class Journal {
     if (this._journalFilesOk === false) {
       return
     }
+
     const journalFiles = this._getJournalFiles()
+
+    console.log(journalFiles)
+    console.log(journalFiles[journalFiles.length - 1])
+
     this._journalTail = new Tail(journalFiles[journalFiles.length - 1])
     this._journalTail.on('line', (data) => {
       const object = JSON.parse(data)

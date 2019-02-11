@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="status-view">
     <ship />
     <shields />
     <fsd />
@@ -22,6 +22,7 @@ export default {
     Ship
   }
 }
+
 </script>
 
 <style scoped lang="scss">

@@ -18,7 +18,7 @@ function createWindow () {
   win = new BrowserWindow({
     width: 250,
     height: 800,
-    resizable: false,
+    resizable: true,
     title: 'EDS'
   })
 

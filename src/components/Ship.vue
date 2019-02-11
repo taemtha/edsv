@@ -5,6 +5,7 @@
     <indicator title="Docked" statusField="docked"></indicator>
     <indicator title="Landing Gear" statusField="landingGearDown"></indicator>
     <indicator title="Cargo Scoop" statusField="cargoScoopDeployed"></indicator>
+    <indicator title="Hardpoints" statusField="hardpointsDeployed"></indicator>
     <indicator title="Mass Locked" statusField="massLocked" warn></indicator>
   </div>
 </template>

@@ -17,9 +17,6 @@ export default {
     }
   },
   computed: {
-    enabled () {
-      return this.$store.state.status[this.statusField]
-    },
     classObject: function () {
       return {
         active: this.$store.state.status[this.statusField],
