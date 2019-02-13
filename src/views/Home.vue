@@ -1,13 +1,13 @@
 <template>
-  <HelloWorld />
+  <StatusView />
 </template>
 
 <script>
-import HelloWorld from '../components/HelloWorld'
+import StatusView from '../components/StatusView'
 
 export default {
   components: {
-    HelloWorld
+    StatusView
   }
 }
 </script>

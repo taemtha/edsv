@@ -1,33 +1,15 @@
 'use strict'
-// C:\Users\mmatzka\Saved Games\Frontier Developments\Elite Dangerous
 const homeDir = require('os').homedir()
 const path = require('path')
-const Tail = require('tail').Tail
+const readline = require('readline')
 const moment = require('moment')
 const fs = require('fs')
+let jumpcount = 0;
 
-// const journalFilesPath = path.join(homeDir, savegameDir, journalFiles)
-// console.log(journalFilesPath)
-// const journalFile = path.join(homeDir, savegameDir, 'Journal.190115210549.01.log')
-// const statusFile = path.join(homeDir, savegameDir, 'Status.json')
-// console.log(journalFile)
-
-// const journalTail = new Tail(journalFile)
-// const statusTail = new Tail(statusFile)
-
-// journalTail.on('line', function (data) {
-//   const object = JSON.parse(data)
-//   console.dir(object, { depth: null, colors: true })
-// })
-
-// statusTail.on('line', function (data) {
-//   const object = JSON.parse(data)
-//   console.dir(object, { depth: null, colors: true })
-// })
-
-function getJournalFiles () {
+(async () => {
   const savegameDir = '/Saved Games/Frontier Developments/Elite Dangerous'
-  const journalFileName = `Journal.${moment().format('YYMMDD')}`
+  // const journalFileName = `Journal.${moment().format('YYMMDD')}`
+  const journalFileName = `Journal.`
   const journalFiles = []
   const journalFilesPath = path.join(homeDir, savegameDir)
 
@@ -43,17 +25,40 @@ function getJournalFiles () {
     if (!stat.isDirectory() && filename.indexOf(journalFileName) >= 0) {
       journalFiles.push(filename)
       console.log('-- found: ', filename)
+      await readFile(filename)
     }
   }
 
-  journalFiles.sort()
-  return journalFiles
+  console.log(jumpcount)
+})()
+
+async function readFile (filename) {
+  return new Promise((resolve, reject) => {
+    let linecount = 0
+    console.log('start')
+    const rl = readline.createInterface({
+      input: fs.createReadStream(filename),
+      crlfDelay: Infinity
+    })
+
+    rl.on('line', (line) => {
+      const parsedLine = JSON.parse(line)
+
+      switch (parsedLine.event) {
+        case 'Location':
+          //    console.log('Location', line)
+          break
+        case 'FSDJump':
+          jumpcount++
+          //   console.log('FSDJump', line)
+          break
+      }
+    })
+
+    rl.on('close', function () {
+      console.log('done')
+      rl.close()
+      resolve()
+    })
+  })
 }
-
-const journalFiles = getJournalFiles()
-
-const journalTail = new Tail(journalFiles[journalFiles.length - 1])
-journalTail.on('line', function (data) {
-  const object = JSON.parse(data)
-  console.dir(object, { depth: null, colors: true })
-})

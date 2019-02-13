@@ -12,10 +12,8 @@ class Journal {
     this._journalFileName = `Journal.${moment().format('YYMMDD')}`
     this._journalFiles = []
     this._journalFilesPath = path.join(this._homeDir, this._savegameDir)
-
     this._journalFilesOk = false
     this._checkJournalFiles()
-
     this._journalTail = null
   }
 
@@ -26,8 +24,9 @@ class Journal {
 
     const journalFiles = this._getJournalFiles()
 
-    console.log(journalFiles)
-    console.log(journalFiles[journalFiles.length - 1])
+    if (journalFiles.length === 0) {
+      return
+    }
 
     this._journalTail = new Tail(journalFiles[journalFiles.length - 1])
     this._journalTail.on('line', (data) => {

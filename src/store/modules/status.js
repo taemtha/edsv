@@ -33,7 +33,17 @@ const state = {
   fuelMainMax: 32,
 
   fuelReservoir: 0,
-  fuelReservoirMax: 0.63
+  fuelReservoirMax: 0.63,
+
+  pipSystem: 0,
+  pipEngine: 0,
+  pipWeapon: 0,
+
+  fireGroup: 0,
+
+  guiFocus: 0,
+
+  cargo: 0
 
 }
 
@@ -45,59 +55,78 @@ const getters = {
 // actions
 const actions = {
   updateStatus ({ commit }, edStatus) {
-    const docked = ((edStatus.Flags & 1 << 0) !== 0)
-    commit('setDocked', docked)
+    if (edStatus.Flags !== undefined) {
+      const docked = ((edStatus.Flags & 1 << 0) !== 0)
+      commit('setDocked', docked)
 
-    const landed = ((edStatus.Flags & 1 << 1) !== 0)
-    commit('setLanded', landed)
+      const landed = ((edStatus.Flags & 1 << 1) !== 0)
+      commit('setLanded', landed)
 
-    const landingGearDown = ((edStatus.Flags & 1 << 2) !== 0)
-    commit('setLandingGearDown', landingGearDown)
+      const landingGearDown = ((edStatus.Flags & 1 << 2) !== 0)
+      commit('setLandingGearDown', landingGearDown)
 
-    const shieldsUp = ((edStatus.Flags & 1 << 3) !== 0)
-    commit('setShieldsUp', shieldsUp)
+      const shieldsUp = ((edStatus.Flags & 1 << 3) !== 0)
+      commit('setShieldsUp', shieldsUp)
 
-    const supercruise = ((edStatus.Flags & 1 << 4) !== 0)
-    commit('setSupercruise', supercruise)
+      const supercruise = ((edStatus.Flags & 1 << 4) !== 0)
+      commit('setSupercruise', supercruise)
 
-    const flightAssistOff = ((edStatus.Flags & 1 << 5) !== 0)
-    commit('setFlightAssistOff', flightAssistOff)
+      const flightAssistOff = ((edStatus.Flags & 1 << 5) !== 0)
+      commit('setFlightAssistOff', flightAssistOff)
 
-    const hardpointsDeployed = ((edStatus.Flags & 1 << 6) !== 0)
-    commit('setHardpointsDeployed', hardpointsDeployed)
+      const hardpointsDeployed = ((edStatus.Flags & 1 << 6) !== 0)
+      commit('setHardpointsDeployed', hardpointsDeployed)
 
-    const inWing = ((edStatus.Flags & 1 << 7) !== 0)
-    commit('setInWing', inWing)
+      const inWing = ((edStatus.Flags & 1 << 7) !== 0)
+      commit('setInWing', inWing)
 
-    const lightsOn = ((edStatus.Flags & 1 << 8) !== 0)
-    commit('setLightsOn', lightsOn)
+      const lightsOn = ((edStatus.Flags & 1 << 8) !== 0)
+      commit('setLightsOn', lightsOn)
 
-    const cargoScoopDeployed = ((edStatus.Flags & 1 << 9) !== 0)
-    commit('setCargoScoopDeployed', cargoScoopDeployed)
+      const cargoScoopDeployed = ((edStatus.Flags & 1 << 9) !== 0)
+      commit('setCargoScoopDeployed', cargoScoopDeployed)
 
-    const silentRunning = ((edStatus.Flags & 1 << 10) !== 0)
-    commit('setSilentRunning', silentRunning)
+      const silentRunning = ((edStatus.Flags & 1 << 10) !== 0)
+      commit('setSilentRunning', silentRunning)
 
-    const scoopingFuel = ((edStatus.Flags & 1 << 11) !== 0)
-    commit('setScoopingFuel', scoopingFuel)
+      const scoopingFuel = ((edStatus.Flags & 1 << 11) !== 0)
+      commit('setScoopingFuel', scoopingFuel)
 
-    const massLocked = ((edStatus.Flags & 1 << 16) !== 0)
-    commit('setMassLocked', massLocked)
+      const massLocked = ((edStatus.Flags & 1 << 16) !== 0)
+      commit('setMassLocked', massLocked)
 
-    const fsdCharging = ((edStatus.Flags & 1 << 17) !== 0)
-    commit('setFsdCharging', fsdCharging)
+      const fsdCharging = ((edStatus.Flags & 1 << 17) !== 0)
+      commit('setFsdCharging', fsdCharging)
 
-    const fsdCooldown = ((edStatus.Flags & 1 << 18) !== 0)
-    commit('setFsdCooldown', fsdCooldown)
+      const fsdCooldown = ((edStatus.Flags & 1 << 18) !== 0)
+      commit('setFsdCooldown', fsdCooldown)
 
-    const analysisMode = ((edStatus.Flags & 1 << 27) !== 0)
-    commit('setAnalysisMode', analysisMode)
+      const analysisMode = ((edStatus.Flags & 1 << 27) !== 0)
+      commit('setAnalysisMode', analysisMode)
 
-    const nightVision = ((edStatus.Flags & 1 << 28) !== 0)
-    commit('setNightVision', nightVision)
+      const nightVision = ((edStatus.Flags & 1 << 28) !== 0)
+      commit('setNightVision', nightVision)
+    }
 
-    commit('setFuelMain', edStatus.Fuel.FuelMain)
-    commit('setFuelReservoir', edStatus.Fuel.FuelReservoir)
+    if (edStatus.Fuel !== undefined) {
+      commit('setFuel', edStatus.Fuel)
+    }
+
+    if (edStatus.Pips) {
+      commit('setPips', edStatus.Pips)
+    }
+
+    if (edStatus.FireGroup) {
+      commit('setFireGroup', edStatus.FireGroup)
+    }
+
+    if (edStatus.GuiFocus) {
+      commit('setGuiFocus', edStatus.GuiFocus)
+    }
+
+    if (edStatus.Cargo) {
+      commit('setCargo', edStatus.Cargo)
+    }
   }
 
 }
@@ -155,11 +184,23 @@ const mutations = {
   setNightVision (state, nightVision) {
     state.nightVision = nightVision
   },
-  setFuelMain (state, fuelMain) {
-    state.fuelMain = fuelMain
+  setFuel (state, fuel) {
+    state.fuelMain = fuel.FuelMain
+    state.fuelReservoir = fuel.FuelReservoir
   },
-  setFuelReservoir (state, fuelReservoir) {
-    state.fuelReservoir = fuelReservoir
+  setPips (state, pips) {
+    state.pipSystem = pips[0]
+    state.pipEngine = pips[1]
+    state.pipWeapon = pips[2]
+  },
+  setFireGroup (state, fireGroup) {
+    state.fireGroup = fireGroup
+  },
+  setGuiFocus (state, guiFocus) {
+    state.guiFocus = guiFocus
+  },
+  setCargo (state, cargo) {
+    state.cargo = cargo
   }
 }
 
