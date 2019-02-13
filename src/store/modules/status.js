@@ -18,8 +18,8 @@ const state = {
   massLocked: false, // 16 65536 0001 0000 Fsd MassLocked
   fsdCharging: false, // 17 131072 0002 0000 Fsd Charging
   fsdCooldown: false, // 18 262144 0004 0000 Fsd Cooldown
-  // 19 524288 0008 0000 Low Fuel ( < 25% )
-  // 20 1048576 0010 0000 Over Heating ( > 100% )
+  lowFuel: false, // 19 524288 0008 0000 Low Fuel ( < 25% )
+  overHeating: false, // 20 1048576 0010 0000 Over Heating ( > 100% )
   // 21 2097152 0020 0000 Has Lat Long
   // 22 4194304 0040 0000 IsInDanger
   // 23 8388608 0080 0000 Being Interdicted
@@ -101,6 +101,12 @@ const actions = {
       const fsdCooldown = ((edStatus.Flags & 1 << 18) !== 0)
       commit('setFsdCooldown', fsdCooldown)
 
+      const lowFuel = ((edStatus.Flags & 1 << 19) !== 0)
+      commit('setLowFuel', lowFuel)
+
+      const overHeating = ((edStatus.Flags & 1 << 20) !== 0)
+      commit('setOverHeating', overHeating)
+
       const analysisMode = ((edStatus.Flags & 1 << 27) !== 0)
       commit('setAnalysisMode', analysisMode)
 
@@ -174,6 +180,12 @@ const mutations = {
   },
   setFsdCharging (state, isCharging) {
     state.fsdCharging = isCharging
+  },
+  setLowFuel (state, lowFuel) {
+    state.lowFuel = lowFuel
+  },
+  setOverHeating (state, overHeating) {
+    state.overHeating = overHeating
   },
   setFsdCooldown (state, fsdCooldown) {
     state.fsdCooldown = fsdCooldown
